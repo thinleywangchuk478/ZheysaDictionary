@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="dz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dzongkha Honorific Dictionary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="page-bg"></div>
+
+  <div class="container">
+
+    <header class="header">
+      <div class="badge-pill">
+        <i class="bi bi-book"></i>
+        Reference Dictionary
+      </div>
+      <h1 class="title">Dzongkha Honorific<br>Dictionary</h1>
+      <p class="tagline">Discover the honorific forms of Dzongkha words</p>
+    </header>
+
+    <div class="search-section">
+      <div class="search-wrap">
+        <i class="bi bi-search search-icon"></i>
+        <input
+          id="wordInput"
+          class="search-input"
+          type="text"
+          placeholder="Type a Dzongkha word…"
+          autocomplete="off"
+          spellcheck="false"
+          aria-label="Search Dzongkha word"
+        >
+        <button class="clear-btn" id="clearBtn" aria-label="Clear input" style="display:none;">
+          <i class="bi bi-x"></i>
+        </button>
+      </div>
+    </div>
+
+    <div class="result-area" id="output">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">
+          <i class="bi bi-translate"></i>
+        </div>
+        <p class="empty-title">Search to begin</p>
+        <p class="empty-sub">Enter a Dzongkha word to find its honorific form, meaning, and example usage.</p>
+      </div>
+    </div>
+
+    <div class="status-bar" id="statusBar">
+      <span class="status-dot loading" id="statusDot"></span>
+      <span id="statusText">Loading dictionary…</span>
+    </div>
+
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <i class="bi bi-c-circle"></i>
+      <span>Developed by <strong>PgDE (Dzongkha), Class of 2026</strong> &mdash; Paro College of Education</span>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
