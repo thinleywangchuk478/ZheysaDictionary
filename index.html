@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="dz">
+<html lang="dz" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +13,17 @@
 <body>
 
   <div class="page-bg"></div>
+
+  <!-- Theme toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+    <span class="toggle-track">
+      <span class="toggle-thumb">
+        <i class="bi bi-sun-fill icon-light"></i>
+        <i class="bi bi-moon-fill icon-dark"></i>
+      </span>
+    </span>
+    <span class="toggle-label" id="toggleLabel">Light</span>
+  </button>
 
   <div class="container">
 
@@ -36,15 +47,18 @@
           autocomplete="off"
           spellcheck="false"
           aria-label="Search Dzongkha word"
+          aria-autocomplete="list"
+          aria-controls="suggestions"
         >
         <button class="clear-btn" id="clearBtn" aria-label="Clear input" style="display:none;">
           <i class="bi bi-x"></i>
         </button>
+        <ul class="suggestions-dropdown" id="suggestions" role="listbox" aria-label="Word suggestions"></ul>
       </div>
     </div>
 
     <div class="result-area" id="output">
-      <div class="empty-state" id="emptyState">
+      <div class="empty-state">
         <div class="empty-icon">
           <i class="bi bi-translate"></i>
         </div>
@@ -53,7 +67,7 @@
       </div>
     </div>
 
-    <div class="status-bar" id="statusBar">
+    <div class="status-bar">
       <span class="status-dot loading" id="statusDot"></span>
       <span id="statusText">Loading dictionary…</span>
     </div>
