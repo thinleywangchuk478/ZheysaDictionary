@@ -1,106 +1,609 @@
-<!DOCTYPE html>
-<html lang="dz" data-theme="light">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dzongkha Honorific Dictionary</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-  <link rel="stylesheet" href="style.css">
+/* ============================================================
+   Dzongkha Honorific Dictionary â€” style.css
+   Design: refined morphism, light/dark mode
+   ============================================================ */
 
-  <!-- PWA -->
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#1f1e1c">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="Dzongkha Dict">
-  <link rel="apple-touch-icon" href="icons/icon-192.png">
-</head>
-<body>
 
-  <div class="page-bg"></div>
+   @font-face {
+  font-family: 'myfont';
+  src: url('myfont.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <!-- Theme toggle -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
-    <span class="toggle-track">
-      <span class="toggle-thumb">
-        <i class="bi bi-sun-fill icon-light"></i>
-        <i class="bi bi-moon-fill icon-dark"></i>
-      </span>
-    </span>
-    <span class="toggle-label" id="toggleLabel">Light</span>
-  </button>
+/* ---------- Light Theme (default) ---------- */
+:root,
+[data-theme="light"] {
+  --font-body: 'myfont', system-ui, sans-serif;
+font-size: 30px;
 
-  <div class="container">
+  --bg-page:        #f9f9f8;
+  --bg-card:        #ffffff;
+  --bg-surface:     #f2f1ef;
+  --bg-hover:       #f2f1ef;
+  --bg-icon:        #eeede9;
+  --bg-input:       #ffffff;
 
-    <header class="header">
-      <div class="badge-pill">
-        <i class="bi bi-book"></i>
-        Reference Dictionary
-      </div>
-      <h1 class="title">Dzongkha Honorific<br>Dictionary</h1>
-      <p class="tagline">Discover the honorific forms of Dzongkha words</p>
-    </header>
+  --text-primary:   #1a1917;
+  --text-secondary: #292928;
+  --text-muted:     #979592;
+  --text-faint:     #9b9d9d;
 
-    <div class="search-section">
-      <div class="search-wrap">
-        <i class="bi bi-search search-icon"></i>
-        <input
-          id="wordInput"
-          class="search-input"
-          type="text"
-          placeholder="Search in Dzongkha or English…"
-          autocomplete="off"
-          spellcheck="false"
-          aria-label="Search Dzongkha word"
-          aria-autocomplete="list"
-          aria-controls="suggestions"
-        >
-        <button class="clear-btn" id="clearBtn" aria-label="Clear input" style="display:none;">
-          <i class="bi bi-x"></i>
-        </button>
-        <ul class="suggestions-dropdown" id="suggestions" role="listbox" aria-label="Word suggestions"></ul>
-      </div>
-    </div>
+  --border-subtle:  rgba(0,0,0,0.07);
+  --border-mid:     rgba(0,0,0,0.11);
 
-    <div class="result-area" id="output">
-      <div class="empty-state">
-        <div class="empty-icon">
-          <i class="bi bi-translate"></i>
-        </div>
-        <p class="empty-title">Search to begin</p>
-        <p class="empty-sub">Enter a Dzongkha word to find its honorific form, meaning, and example usage.</p>
-      </div>
-    </div>
+  --info-bg:        #eef3fb;
+  --info-text:      #2459a8;
 
-    <div class="status-bar">
-      <span class="status-dot loading" id="statusDot"></span>
-      <span id="statusText">Loading dictionary…</span>
-    </div>
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.05);
+  --shadow-hover:   0 2px 8px rgba(0,0,0,0.08), 0 8px 28px rgba(0,0,0,0.08);
 
-  </div>
+  --glow-a:         rgba(220,215,205,0.45);
+  --glow-b:         rgba(200,208,225,0.30);
 
-  <footer class="site-footer">
-    <div class="footer-inner">
-      <i class="bi bi-c-circle"></i>
-      <span>Developed by <strong>PgDE (Dzongkha), Class of 2026</strong> &mdash; Paro College of Education</span>
-    </div>
-  </footer>
+  --toggle-track:   #e4e2de;
+  --toggle-thumb:   #ffffff;
+  --toggle-border:  rgba(0,0,0,0.10);
+}
 
-  <script src="app.js"></script>
+/* ---------- Dark Theme ---------- */
+[data-theme="dark"] {
+  --bg-page:        #141312;
+  --bg-card:        #1f1e1c;
+  --bg-surface:     #181715;
+  --bg-hover:       #272624;
+  --bg-icon:        #2a2927;
+  --bg-input:       #1f1e1c;
 
-  <!-- Register Service Worker -->
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/service-worker.js')
-          .then(() => console.log('Service Worker registered'))
-          .catch(err => console.warn('SW registration failed:', err));
-      });
-    }
-  </script>
-</body>
-</html>
+  --text-primary:   #f0ede8;
+  --text-secondary: #b0ada7;
+  --text-muted:     #8d8c8b;
+  --text-faint:     #918f8d;
+
+  --border-subtle:  rgba(255,255,255,0.06);
+  --border-mid:     rgba(255,255,255,0.10);
+
+  --info-bg:        rgba(36,89,168,0.18);
+  --info-text:      #7aa8e8;
+
+  --shadow-card:    0 1px 3px rgba(0,0,0,0.3), 0 4px 16px rgba(0,0,0,0.25);
+  --shadow-hover:   0 2px 8px rgba(0,0,0,0.35), 0 8px 28px rgba(0,0,0,0.30);
+
+  --glow-a:         rgba(60,55,45,0.5);
+  --glow-b:         rgba(30,40,65,0.4);
+
+  --toggle-track:   #3a3835;
+  --toggle-thumb:   #f0ede8;
+  --toggle-border:  rgba(255,255,255,0.08);
+}
+
+/* ---------- Base ---------- */
+html { transition: background-color 0.3s, color 0.3s; }
+
+body {
+  font-family: var(--font-body);
+  font-size: 30px;
+
+  font-family: 'myfont', system-ui, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-secondary);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* ---------- Background ---------- */
+.page-bg {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 50% at 20% 10%, var(--glow-a) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 40% at 80% 80%, var(--glow-b) 0%, transparent 60%),
+    var(--bg-page);
+  z-index: 0;
+  pointer-events: none;
+  transition: background 0.3s;
+}
+
+/* ---------- Theme Toggle ---------- */
+.theme-toggle {
+  position: fixed;
+  top: 1.25rem;
+  right: 1.25rem;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-mid);
+  border-radius: 999px;
+  padding: 6px 12px 6px 6px;
+  cursor: pointer;
+  box-shadow: var(--shadow-card);
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+
+.theme-toggle:hover {
+  box-shadow: var(--shadow-hover);
+}
+
+.toggle-track {
+  width: 36px;
+  height: 20px;
+  background: var(--toggle-track);
+  border-radius: 999px;
+  position: relative;
+  flex-shrink: 0;
+  transition: background 0.3s;
+  border: 1px solid var(--toggle-border);
+}
+
+.toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  background: var(--toggle-thumb);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1), background 0.3s;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  font-size: 8px;
+  overflow: hidden;
+}
+
+[data-theme="dark"] .toggle-thumb {
+  transform: translateX(16px);
+}
+
+.icon-light, .icon-dark { position: absolute; transition: opacity 0.2s; }
+.icon-light { color: #d4a62a; opacity: 1; }
+.icon-dark  { color: #7aa8e8; opacity: 0; }
+
+[data-theme="dark"] .icon-light { opacity: 0; }
+[data-theme="dark"] .icon-dark  { opacity: 1; }
+
+.toggle-label {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.03em;
+  transition: color 0.3s;
+  user-select: none;
+}
+
+/* ---------- Layout ---------- */
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 3.5rem 1.5rem 4rem;
+}
+
+/* ---------- Header ---------- */
+.header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  background: var(--bg-card);
+  border: 1px solid var(--border-mid);
+  border-radius: 999px;
+  padding: 5px 14px;
+  margin-bottom: 1.25rem;
+  box-shadow: var(--shadow-card);
+  transition: background 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.badge-pill i { font-size: 13px; color: var(--text-faint); }
+
+.title {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: clamp(28px, 5vw, 38px);
+  font-weight: 400;
+  color: var(--text-primary);
+  line-height: 1.2;
+  margin-bottom: 0.6rem;
+  letter-spacing: -0.01em;
+  transition: color 0.3s;
+}
+
+.tagline {
+  font-size: 14px;
+  color: var(--text-faint);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+/* ---------- Search ---------- */
+.search-section { margin-bottom: 1.25rem; }
+
+.search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 16px;
+  font-size: 16px;
+  color: var(--text-faint);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.search-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 48px 0 46px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--text-primary);
+  background: var(--bg-input);
+  border: 1px solid var(--border-mid);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+  outline: none;
+  transition: border-color 0.18s, box-shadow 0.18s, background 0.3s, color 0.3s;
+}
+
+.search-input::placeholder { color: var(--text-faint); }
+
+.search-input:focus {
+  border-color: var(--text-muted);
+  box-shadow: var(--shadow-hover), 0 0 0 3px rgba(128,128,128,0.08);
+}
+
+.clear-btn {
+  position: absolute;
+  right: 12px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: var(--bg-surface);
+  border-radius: 50%;
+  cursor: pointer;
+  color: var(--text-muted);
+  font-size: 15px;
+  transition: background 0.15s, color 0.15s;
+}
+
+.clear-btn:hover { background: var(--bg-hover); color: var(--text-primary); }
+
+/* ---------- Result Card ---------- */
+.result-area {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 18px;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+  min-height: 160px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
+}
+
+.result-area:has(.result-header) { box-shadow: var(--shadow-hover); }
+
+.result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.1rem 1.4rem;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.3s;
+}
+
+.result-word {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.found-pill {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  background: var(--info-bg);
+  color: var(--info-text);
+  border-radius: 999px;
+  padding: 4px 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.3s, color 0.3s;
+}
+
+.result-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.4rem;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.12s;
+}
+
+.result-row:last-child { border-bottom: none; }
+.result-row:hover { background: var(--bg-hover); }
+
+.row-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  background: var(--bg-icon);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 15px;
+  margin-top: 1px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.row-label {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 3px;
+}
+
+.row-value {
+  font-size: 15px;
+  color: var(--text-secondary);
+  line-height: 1.55;
+}
+
+/* ---------- Empty / Not Found States ---------- */
+.empty-state, .notfound-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.notfound-state { padding: 2.5rem 2rem; }
+
+.empty-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: var(--bg-icon);
+  border: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  color: var(--text-faint);
+  margin-bottom: 1rem;
+  transition: background 0.3s;
+}
+
+.empty-title {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-bottom: 0.35rem;
+}
+
+.empty-sub {
+  font-size: 13px;
+  color: var(--text-faint);
+  max-width: 300px;
+  line-height: 1.6;
+}
+
+.notfound-word {
+  font-family: 'DM Serif Display', Georgia, serif;
+  font-size: 20px;
+  color: var(--text-secondary);
+  margin-bottom: 0.35rem;
+}
+
+.notfound-sub { font-size: 13px; color: var(--text-faint); }
+
+/* ---------- Status Bar ---------- */
+.status-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12px;
+  color: var(--text-faint);
+  margin-top: 1rem;
+  padding: 0 0.25rem;
+}
+
+.status-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #1D9E75;
+  flex-shrink: 0;
+}
+
+.status-dot.loading {
+  background: #EF9F27;
+  animation: pulse 1.2s ease-in-out infinite;
+}
+
+.status-dot.error { background: #E24B4A; }
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ---------- Result Header Left ---------- */
+.result-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.result-word-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* English translation tag shown next to Dzongkha word */
+.english-tag {
+  font-family: 'DM Sans', system-ui, sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  background: var(--bg-icon);
+  border: 1px solid var(--border-subtle);
+  border-radius: 999px;
+  padding: 2px 10px;
+  letter-spacing: 0.01em;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ---------- Language Match Badge ---------- */
+.lang-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  padding: 3px 10px;
+  width: fit-content;
+}
+
+.lang-badge.dzongkha {
+  background: rgba(29,158,117,0.12);
+  color: #1D9E75;
+}
+
+.lang-badge.english {
+  background: var(--info-bg);
+  color: var(--info-text);
+}
+
+/* ---------- Honorific Inline (multi-result) ---------- */
+.honorific-inline {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-left: 6px;
+}
+
+.multi-row:hover {
+  background: var(--bg-hover);
+}
+
+/* ---------- Suggestions Dropdown ---------- */
+.suggestions-dropdown {
+  display: none;
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: var(--bg-card);
+  border: 1px solid var(--border-mid);
+  border-radius: 18px;
+  box-shadow: var(--shadow-hover);
+  list-style: none;
+  z-index: 100;
+  overflow: hidden;
+  max-height: 220px;
+  overflow-y: auto;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.suggestions-dropdown.open { display: block; }
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.1s;
+}
+
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover,
+.suggestion-item.active { background: var(--bg-hover); }
+
+.suggestion-item i { font-size: 14px; color: var(--text-faint); flex-shrink: 0; }
+
+.suggestion-main { font-size: 14px; color: var(--text-secondary); font-weight: 400; }
+
+.suggestion-main mark {
+  background: none;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.suggestion-hint {
+  font-size: 12px;
+  color: var(--text-faint);
+  margin-left: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 140px;
+}
+
+/* ---------- Footer ---------- */
+.site-footer {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 1.25rem 1.5rem 2rem;
+  border-top: 1px solid var(--border-subtle);
+  margin-top: 0.5rem;
+  transition: border-color 0.3s;
+}
+
+.footer-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 12.5px;
+  color: var(--text-faint);
+  font-weight: 300;
+  letter-spacing: 0.01em;
+}
+
+.footer-inner i { font-size: 13px; color: var(--text-faint); flex-shrink: 0; }
+.footer-inner strong { font-weight: 500; color: var(--text-muted); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 480px) {
+  .container { padding: 2rem 1rem 3rem; }
+  .result-header, .result-row { padding-left: 1rem; padding-right: 1rem; }
+  .footer-inner { flex-direction: column; gap: 4px; }
+  .theme-toggle { top: 0.75rem; right: 0.75rem; }
+}
