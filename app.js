@@ -1,6 +1,7 @@
 /* ============================================================
    Dzongkha Honorific Dictionary — app.js
-   Bilingual search: Dzongkha word OR English meaning
+   Bilingual search: Dzongkha word OR English word
+   Sheet columns: A=word, B=english, C=honorific, D=meaning, E=example
    ============================================================ */
 
 const SHEET_URL =
@@ -35,19 +36,20 @@ function applyTheme(theme) {
 }
 
 // ── Load data from Google Sheets CSV ────────────────────────
+// Column order: A=word, B=english, C=honorific, D=meaning, E=example
 async function loadSheetData() {
   const response = await fetch(SHEET_URL);
   if (!response.ok) throw new Error("Network response was not ok");
   const text = await response.text();
   const rows = text.split("\n").map(line => parseCSVRow(line));
 
-  // honorifics: keyed by Dzongkha word
   const honorifics = {};
 
   rows.slice(1).forEach(row => {
-    const [word, honorific, meaning, example] = row;
+    const [word, english, honorific, meaning, example] = row;
     if (word && word.trim()) {
       honorifics[word.trim()] = {
+        english:   (english   || "").trim(),
         honorific: (honorific || "").trim(),
         meaning:   (meaning   || "").trim(),
         example:   (example   || "").trim(),
@@ -72,7 +74,6 @@ function parseCSVRow(line) {
 }
 
 // ── Detect if query is English or Dzongkha ───────────────────
-// Dzongkha uses Tibetan Unicode block: U+0F00–U+0FFF
 function isEnglish(str) {
   return /^[\x00-\x7F\s]+$/.test(str);
 }
@@ -83,19 +84,19 @@ function findMatches(query, honorifics) {
   const allWords = Object.keys(honorifics);
 
   if (isEnglish(query)) {
-    // Search by English meaning
+    // Search by English column (B)
     return allWords
-      .filter(word => honorifics[word].meaning.toLowerCase().includes(q))
+      .filter(word => honorifics[word].english.toLowerCase().includes(q))
       .sort((a, b) => {
-        const aStarts = honorifics[a].meaning.toLowerCase().startsWith(q);
-        const bStarts = honorifics[b].meaning.toLowerCase().startsWith(q);
+        const aStarts = honorifics[a].english.toLowerCase().startsWith(q);
+        const bStarts = honorifics[b].english.toLowerCase().startsWith(q);
         if (aStarts && !bStarts) return -1;
         if (!aStarts && bStarts) return 1;
         return a.localeCompare(b);
       })
       .slice(0, 8);
   } else {
-    // Search by Dzongkha word
+    // Search by Dzongkha word (A)
     return allWords
       .filter(word => word.includes(query))
       .sort((a, b) => {
@@ -109,7 +110,7 @@ function findMatches(query, honorifics) {
   }
 }
 
-// Find exact match — by word or by meaning
+// ── Find exact match — by Dzongkha word or English word ──────
 function findExact(query, honorifics) {
   const q = query.trim();
 
@@ -118,11 +119,11 @@ function findExact(query, honorifics) {
     return { key: q, entry: honorifics[q], matchedBy: "dzongkha" };
   }
 
-  // Exact English meaning match (first result)
+  // Exact English word match
   if (isEnglish(q)) {
     const ql = q.toLowerCase();
     const key = Object.keys(honorifics).find(
-      word => honorifics[word].meaning.toLowerCase() === ql
+      word => honorifics[word].english.toLowerCase() === ql
     );
     if (key) return { key, entry: honorifics[key], matchedBy: "english" };
   }
@@ -136,7 +137,7 @@ function renderEmpty() {
     <div class="empty-state">
       <div class="empty-icon"><i class="bi bi-translate"></i></div>
       <p class="empty-title">Search to begin</p>
-      <p class="empty-sub">Type a Dzongkha word <strong>or</strong> an English meaning to find the honorific form.</p>
+      <p class="empty-sub">Type a Dzongkha word <strong>or</strong> an English word to find the honorific form.</p>
     </div>`;
 }
 
@@ -145,10 +146,18 @@ function renderResult(key, entry, matchedBy) {
     ? `<span class="lang-badge english"><i class="bi bi-alphabet"></i> English match</span>`
     : `<span class="lang-badge dzongkha"><i class="bi bi-globe-asia-australia"></i> Dzongkha match</span>`;
 
+  // Show English translation next to the Dzongkha word in header
+  const englishTag = entry.english
+    ? `<span class="english-tag">${escapeHTML(entry.english)}</span>`
+    : "";
+
   output.innerHTML = `
     <div class="result-header">
       <div class="result-header-left">
-        <span class="result-word">${escapeHTML(key)}</span>
+        <div class="result-word-row">
+          <span class="result-word">${escapeHTML(key)}</span>
+          ${englishTag}
+        </div>
         ${langBadge}
       </div>
       <span class="found-pill">Honorific found</span>
@@ -162,7 +171,7 @@ function renderResult(key, entry, matchedBy) {
         </div>
       </div>
       <div class="result-row">
-        <div class="row-icon"><i class="bi bi-alphabet"></i></div>
+        <div class="row-icon"><i class="bi bi-journal-text"></i></div>
         <div class="row-content">
           <div class="row-label">Meaning</div>
           <div class="row-value">${escapeHTML(entry.meaning) || "—"}</div>
@@ -179,12 +188,11 @@ function renderResult(key, entry, matchedBy) {
 }
 
 function renderMultipleResults(matches, honorifics) {
-  // When typing English and multiple results match, show all as cards
   const cards = matches.map(key => `
     <div class="result-row multi-row" data-word="${escapeHTML(key)}" style="cursor:pointer;">
       <div class="row-icon"><i class="bi bi-award"></i></div>
       <div class="row-content">
-        <div class="row-label">${escapeHTML(honorifics[key].meaning)}</div>
+        <div class="row-label">${escapeHTML(honorifics[key].english)}</div>
         <div class="row-value">${escapeHTML(key)}
           <span class="honorific-inline">→ ${escapeHTML(honorifics[key].honorific)}</span>
         </div>
@@ -199,21 +207,20 @@ function renderMultipleResults(matches, honorifics) {
     </div>
     <div class="result-body">${cards}</div>`;
 
-  // Make each row clickable
   output.querySelectorAll(".multi-row").forEach(row => {
     row.addEventListener("click", () => {
       const word = row.dataset.word;
-      selectWord(word, honorifics);
       wordInput.value = word;
       clearBtn.style.display = "flex";
+      selectWord(word, honorifics);
     });
   });
 }
 
 function renderNotFound(query) {
   const hint = isEnglish(query)
-    ? "Try a different English word, or type a Dzongkha word directly."
-    : "Try another Dzongkha word, or type the English meaning instead.";
+    ? "Try a different English word, or type the Dzongkha word directly."
+    : "Try another Dzongkha word, or type the English word instead.";
   output.innerHTML = `
     <div class="notfound-state">
       <div class="empty-icon"><i class="bi bi-question-lg"></i></div>
@@ -248,12 +255,14 @@ function showSuggestions(matches, query, honorifics) {
   const english = isEnglish(query);
 
   suggestions.innerHTML = matches.map((word, i) => {
-    // If searching by English, show Dzongkha word as main, meaning highlighted
-    // If searching by Dzongkha, show Dzongkha word highlighted, meaning as hint
-    const main   = english ? escapeHTML(word) : highlightMatch(word, query);
-    const hint   = english
-      ? highlightMatch(honorifics[word].meaning, query)
-      : escapeHTML(honorifics[word].meaning || honorifics[word].honorific || "");
+    // English search: show Dzongkha word + highlighted English hint
+    // Dzongkha search: show highlighted Dzongkha word + English hint
+    const main = english
+      ? escapeHTML(word)
+      : highlightMatch(word, query);
+    const hint = english
+      ? highlightMatch(honorifics[word].english, query)
+      : escapeHTML(honorifics[word].english || honorifics[word].honorific || "");
 
     return `
       <li class="suggestion-item" role="option" data-word="${escapeHTML(word)}" data-index="${i}">
@@ -295,8 +304,6 @@ function initSearch(honorifics) {
       renderResult(exact.key, exact.entry, exact.matchedBy);
     } else if (matches.length > 1 && isEnglish(query)) {
       renderMultipleResults(matches, honorifics);
-    } else if (matches.length === 0) {
-      renderNotFound(query);
     } else {
       renderNotFound(query);
     }
@@ -304,7 +311,6 @@ function initSearch(honorifics) {
     showSuggestions(matches, query, honorifics);
   });
 
-  // Keyboard navigation
   wordInput.addEventListener("keydown", function (e) {
     const items = suggestions.querySelectorAll(".suggestion-item");
     if (!items.length) return;
