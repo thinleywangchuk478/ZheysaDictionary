@@ -16,7 +16,7 @@
 /* ---------- Light Theme (default) ---------- */
 :root,
 [data-theme="light"] {
-  --font-body: 'MyFont', system-ui, sans-serif;
+  --font-body: 'myfont', system-ui, sans-serif;
 font-size: 20px;
 
   --bg-page:        #f9f9f8;
@@ -85,8 +85,6 @@ html { transition: background-color 0.3s, color 0.3s; }
 body {
   font-family: var(--font-body);
   font-size: 20px;
-
-  font-family: 'DM Sans', system-ui, sans-serif;
   background-color: var(--bg-page);
   color: var(--text-secondary);
   min-height: 100vh;
