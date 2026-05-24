@@ -6,7 +6,7 @@
 
    @font-face {
   font-family: 'myfont';
-  src: url('myfont.ttf') format('truetype');
+  src: url('myfont.ttf') format('ttf');
   font-weight: normal;
   font-style: normal;
 }
@@ -16,7 +16,7 @@
 /* ---------- Light Theme (default) ---------- */
 :root,
 [data-theme="light"] {
-  --font-body: 'myfont', system-ui, sans-serif;
+  --font-body: 'MyFont', system-ui, sans-serif;
 font-size: 20px;
 
   --bg-page:        #f9f9f8;
@@ -85,6 +85,8 @@ html { transition: background-color 0.3s, color 0.3s; }
 body {
   font-family: var(--font-body);
   font-size: 20px;
+
+  font-family: 'myfont', system-ui, sans-serif;
   background-color: var(--bg-page);
   color: var(--text-secondary);
   min-height: 100vh;
@@ -251,7 +253,7 @@ body {
   width: 100%;
   height: 52px;
   padding: 0 48px 0 46px;
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: var(--font-body);
   font-size: 15px;
   color: var(--text-primary);
   background: var(--bg-input);
