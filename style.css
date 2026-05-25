@@ -493,7 +493,6 @@ body {
 
 /* English tag next to Dzongkha word — always English font */
 .english-tag {
-  .english-tag {
   font-family: var(--font-english);
   font-size: 13px;
   font-weight: 600;
