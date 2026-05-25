@@ -495,13 +495,13 @@ body {
 .english-tag {
   font-family: var(--font-english);
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 500;
   color: #2459a8;
-  background: transparent;
+  background: #eef3fb;
   border: 1.5px solid #2459a8;
-  border-radius: 999px;
-  padding: 3px 12px;
-  letter-spacing: 0.03em;
+  border-radius: 8px;
+  padding: 2px 10px;
+  letter-spacing: 0.01em;
   transition: background 0.3s, color 0.3s;
 }
 
