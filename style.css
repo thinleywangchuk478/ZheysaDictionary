@@ -50,20 +50,20 @@ font-size: 30px;
 
 /* ---------- Dark Theme ---------- */
 [data-theme="dark"] {
-  --bg-page:        #141312;
-  --bg-card:        #1f1e1c;
-  --bg-surface:     #181715;
+  --bg-page:        #022d37;
+  --bg-card:        #021e2a;
+  --bg-surface:     #032e41;
   --bg-hover:       #272624;
   --bg-icon:        #2a2927;
-  --bg-input:       #1f1e1c;
+  --bg-input:       #032e41;
 
   --text-primary:   #f0ede8;
   --text-secondary: #b0ada7;
-  --text-muted:     #8d8c8b;
-  --text-faint:     #918f8d;
+  --text-muted:     #509fb0;
+  --text-faint:     #7f919c;
 
   --border-subtle:  rgba(255,255,255,0.06);
-  --border-mid:     rgba(255,255,255,0.10);
+  --border-mid:     rgba(3, 34, 45, 0.879);
 
   --info-bg:        rgba(36,89,168,0.18);
   --info-text:      #7aa8e8;
@@ -225,7 +225,7 @@ body {
 }
 
 .tagline {
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-faint);
   font-weight: 300;
   letter-spacing: 0.01em;
