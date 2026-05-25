@@ -496,9 +496,9 @@ body {
   font-family: var(--font-english);
   font-size: 13px;
   font-weight: 600;
-  color: #ffffff;
-  background: #2459a8;
-  border: none;
+  color: #2459a8;
+  background: transparent;
+  border: 1.5px solid #2459a8;
   border-radius: 999px;
   padding: 3px 12px;
   letter-spacing: 0.03em;
