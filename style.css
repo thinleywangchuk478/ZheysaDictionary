@@ -1,23 +1,24 @@
 /* ============================================================
-   Dzongkha Honorific Dictionary â€” style.css
+   Dzongkha Honorific Dictionary — style.css
    Design: refined morphism, light/dark mode
+   Fonts: myfont for Dzongkha, DM Sans for English
    ============================================================ */
 
-
-   @font-face {
-  font-family: 'myfont';
-  src: url('myfont.ttf') format('truetype');
+@font-face {
+  font-family: 'ThinwangT_Joyig';
+  src: url('ThinwangT_Joyig.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
+
 /* ---------- Reset ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 /* ---------- Light Theme (default) ---------- */
 :root,
 [data-theme="light"] {
-  --font-body: 'myfont', system-ui, sans-serif;
-font-size: 30px;
+  --font-dzongkha: 'ThinwangT_Joyig', system-ui, sans-serif;
+  --font-english:  'DM Sans', system-ui, sans-serif;
 
   --bg-page:        #f9f9f8;
   --bg-card:        #ffffff;
@@ -63,7 +64,7 @@ font-size: 30px;
   --text-faint:     #7f919c;
 
   --border-subtle:  rgba(255,255,255,0.06);
-  --border-mid:     rgba(3, 34, 45, 0.879);
+  --border-mid:     rgba(3,34,45,0.879);
 
   --info-bg:        rgba(36,89,168,0.18);
   --info-text:      #7aa8e8;
@@ -82,11 +83,10 @@ font-size: 30px;
 /* ---------- Base ---------- */
 html { transition: background-color 0.3s, color 0.3s; }
 
+/* Default body uses English font for all UI text */
 body {
-  font-family: var(--font-body);
-  font-size: 30px;
-
-  font-family: 'myfont', system-ui, sans-serif;
+  font-family: var(--font-english);
+  font-size: 14px;
   background-color: var(--bg-page);
   color: var(--text-secondary);
   min-height: 100vh;
@@ -126,9 +126,7 @@ body {
   transition: background 0.3s, border-color 0.3s, box-shadow 0.2s;
 }
 
-.theme-toggle:hover {
-  box-shadow: var(--shadow-hover);
-}
+.theme-toggle:hover { box-shadow: var(--shadow-hover); }
 
 .toggle-track {
   width: 36px;
@@ -158,9 +156,7 @@ body {
   overflow: hidden;
 }
 
-[data-theme="dark"] .toggle-thumb {
-  transform: translateX(16px);
-}
+[data-theme="dark"] .toggle-thumb { transform: translateX(16px); }
 
 .icon-light, .icon-dark { position: absolute; transition: opacity 0.2s; }
 .icon-light { color: #d4a62a; opacity: 1; }
@@ -170,6 +166,7 @@ body {
 [data-theme="dark"] .icon-dark  { opacity: 1; }
 
 .toggle-label {
+  font-family: var(--font-english);
   font-size: 12px;
   font-weight: 500;
   color: var(--text-muted);
@@ -197,6 +194,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  font-family: var(--font-english);
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.09em;
@@ -225,9 +223,10 @@ body {
 }
 
 .tagline {
-  font-size: 15px;
+  font-family: var(--font-dzongkha);
+  font-size: 25px;
   color: var(--text-faint);
-  font-weight: 300;
+  font-weight: 500;
   letter-spacing: 0.01em;
 }
 
@@ -249,12 +248,13 @@ body {
   z-index: 1;
 }
 
+/* Search input uses myfont so Dzongkha typing looks correct */
 .search-input {
   width: 100%;
   height: 52px;
   padding: 0 48px 0 46px;
-  font-family: var(--font-body);
-  font-size: 15px;
+  font-family: var(--font-dzongkha);
+  font-size: 20px;
   color: var(--text-primary);
   background: var(--bg-input);
   border: 1px solid var(--border-mid);
@@ -264,7 +264,11 @@ body {
   transition: border-color 0.18s, box-shadow 0.18s, background 0.3s, color 0.3s;
 }
 
-.search-input::placeholder { color: var(--text-faint); }
+.search-input::placeholder {
+  font-family: var(--font-english);
+  font-size: 14px;
+  color: var(--text-faint);
+}
 
 .search-input:focus {
   border-color: var(--text-muted);
@@ -314,15 +318,17 @@ body {
   transition: background 0.3s;
 }
 
+/* Dzongkha word in header — uses myfont, bigger */
 .result-word {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 22px;
+  font-family: var(--font-dzongkha);
+  font-size: 26px;
   font-weight: 400;
   color: var(--text-primary);
   letter-spacing: -0.01em;
 }
 
 .found-pill {
+  font-family: var(--font-english);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.08em;
@@ -364,7 +370,9 @@ body {
   transition: background 0.3s, border-color 0.3s;
 }
 
+/* Labels like HONORIFIC FORM, MEANING, EXAMPLE — English font */
 .row-label {
+  font-family: var(--font-english);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.09em;
@@ -373,10 +381,12 @@ body {
   margin-bottom: 3px;
 }
 
+/* Row values (Dzongkha text) — myfont, bigger size */
 .row-value {
-  font-size: 15px;
+  font-family: var(--font-dzongkha);
+  font-size: 22px;
   color: var(--text-secondary);
-  line-height: 1.55;
+  line-height: 1.6;
 }
 
 /* ---------- Empty / Not Found States ---------- */
@@ -407,6 +417,7 @@ body {
 }
 
 .empty-title {
+  font-family: var(--font-english);
   font-size: 15px;
   font-weight: 500;
   color: var(--text-muted);
@@ -414,26 +425,33 @@ body {
 }
 
 .empty-sub {
+  font-family: var(--font-english);
   font-size: 13px;
   color: var(--text-faint);
   max-width: 300px;
   line-height: 1.6;
 }
 
+/* Not found word — myfont since it could be Dzongkha */
 .notfound-word {
-  font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 20px;
+  font-family: var(--font-dzongkha);
+  font-size: 24px;
   color: var(--text-secondary);
   margin-bottom: 0.35rem;
 }
 
-.notfound-sub { font-size: 13px; color: var(--text-faint); }
+.notfound-sub {
+  font-family: var(--font-english);
+  font-size: 13px;
+  color: var(--text-faint);
+}
 
 /* ---------- Status Bar ---------- */
 .status-bar {
   display: flex;
   align-items: center;
   gap: 7px;
+  font-family: var(--font-english);
   font-size: 12px;
   color: var(--text-faint);
   margin-top: 1rem;
@@ -473,9 +491,9 @@ body {
   flex-wrap: wrap;
 }
 
-/* English translation tag shown next to Dzongkha word */
+/* English tag next to Dzongkha word — always English font */
 .english-tag {
-  font-family: 'DM Sans', system-ui, sans-serif;
+  font-family: var(--font-english);
   font-size: 13px;
   font-weight: 400;
   color: var(--text-muted);
@@ -492,6 +510,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
+  font-family: var(--font-english);
   font-size: 10px;
   font-weight: 500;
   letter-spacing: 0.06em;
@@ -513,14 +532,13 @@ body {
 
 /* ---------- Honorific Inline (multi-result) ---------- */
 .honorific-inline {
-  font-size: 13px;
+  font-family: var(--font-dzongkha);
+  font-size: 18px;
   color: var(--text-muted);
   margin-left: 6px;
 }
 
-.multi-row:hover {
-  background: var(--bg-hover);
-}
+.multi-row:hover { background: var(--bg-hover); }
 
 /* ---------- Suggestions Dropdown ---------- */
 .suggestions-dropdown {
@@ -535,7 +553,7 @@ body {
   list-style: none;
   z-index: 100;
   overflow: hidden;
-  max-height: 220px;
+  max-height: 260px;
   overflow-y: auto;
   transition: background 0.3s, border-color 0.3s;
 }
@@ -558,15 +576,22 @@ body {
 
 .suggestion-item i { font-size: 14px; color: var(--text-faint); flex-shrink: 0; }
 
-.suggestion-main { font-size: 14px; color: var(--text-secondary); font-weight: 400; }
-
+/* Suggestion main — myfont for Dzongkha words */
+.suggestion-main {
+  font-family: var(--font-dzongkha);
+  font-size: 20px;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
 .suggestion-main mark {
   background: none;
   color: var(--text-primary);
   font-weight: 500;
 }
 
+/* Suggestion hint — English font for English hints */
 .suggestion-hint {
+  font-family: var(--font-english);
   font-size: 12px;
   color: var(--text-faint);
   margin-left: auto;
@@ -591,6 +616,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 7px;
+  font-family: var(--font-english);
   font-size: 12.5px;
   color: var(--text-faint);
   font-weight: 300;
