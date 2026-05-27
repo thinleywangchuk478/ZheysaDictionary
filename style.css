@@ -5,8 +5,8 @@
    ============================================================ */
 
 @font-face {
-  font-family: 'ThinwangT_Joyig';
-  src: url('ThinwangT_Joyig.ttf') format('truetype');
+  font-family: 'Jomolhari';
+  src: url('Jomolhari.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -17,7 +17,7 @@
 /* ---------- Light Theme (default) ---------- */
 :root,
 [data-theme="light"] {
-  --font-dzongkha: 'ThinwangT_Joyig', system-ui, sans-serif;
+  --font-dzongkha: 'Jomolhari', system-ui, sans-serif;
   --font-english:  'DM Sans', system-ui, sans-serif;
 
   --bg-page:        #f9f9f8;
@@ -384,7 +384,7 @@ body {
 /* Row values (Dzongkha text) — myfont, bigger size */
 .row-value {
   font-family: var(--font-dzongkha);
-  font-size: 22px;
+  font-size: 20px;
   color: var(--text-secondary);
   line-height: 1.6;
 }
@@ -651,7 +651,7 @@ body {
 }
 
 .wotd-label {
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.09em;
@@ -990,7 +990,7 @@ body {
   width: calc(100% - 2.8rem);
   margin: 1rem 1.4rem 0.5rem;
   padding: 10px 14px;
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 14px;
   color: var(--text-primary);
   background: var(--bg-surface);
@@ -1024,7 +1024,7 @@ body {
 }
 
 .browse-eng {
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 12px;
   color: var(--text-muted);
   margin-top: 2px;
@@ -1059,7 +1059,7 @@ body {
 }
 
 .quiz-english {
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 13px;
   color: var(--text-muted);
   text-align: center;
@@ -1067,7 +1067,7 @@ body {
 }
 
 .quiz-prompt {
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 13px;
   color: var(--text-faint);
   text-align: center;
@@ -1112,7 +1112,7 @@ body {
 
 .quiz-next-btn {
   width: 100%;
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 14px;
   font-weight: 600;
   color: #fff;
@@ -1128,11 +1128,12 @@ body {
 
 /* ---------- Contribute Modal ---------- */
 .contribute-body {
+  font-family: var(--font-dzongkha);
   padding: 1.25rem 1.4rem 2rem;
 }
 
 .contribute-desc {
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 13px;
   color: var(--text-muted);
   line-height: 1.6;
@@ -1149,7 +1150,7 @@ body {
 
 .form-group label {
   display: block;
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.07em;
@@ -1161,7 +1162,7 @@ body {
 .form-input {
   width: 100%;
   padding: 10px 14px;
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 14px;
   color: var(--text-primary);
   background: var(--bg-surface);
@@ -1183,7 +1184,7 @@ body {
 
 .submit-btn {
   width: 100%;
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 15px;
   font-weight: 600;
   color: #fff;
@@ -1204,7 +1205,7 @@ body {
 .submit-btn:disabled { background: var(--bg-icon); color: var(--text-faint); cursor: not-allowed; }
 
 .contribute-status {
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 13px;
   text-align: center;
   margin-top: 0.75rem;
@@ -1219,7 +1220,7 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  font-family: var(--font-english);
+  font-family: var(--font-dzongkha);
   font-size: 11px;
   font-weight: 500;
   color: var(--text-faint);
