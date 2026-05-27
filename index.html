@@ -47,7 +47,7 @@
 
     <!-- Word of the Day -->
     <div class="wotd-card" id="wotdCard">
-      <div class="wotd-label"><i class="bi bi-stars"></i> Word of the Day</div>
+      <div class="wotd-label"><i class="bi bi-stars"></i> ད་རིས་ཀྱི་མིང་ཚིག། Word of the Day</div>
       <div class="wotd-body">
         <span class="wotd-word" id="wotdWord">—</span>
         <span class="wotd-english" id="wotdEnglish"></span>
@@ -105,13 +105,13 @@
     <!-- Action Buttons Row -->
     <div class="action-row">
       <button class="action-btn" id="browseBtn">
-        <i class="bi bi-list-ul"></i> Browse All
+        <i class="bi bi-list-ul"></i> ཞེ་སའི་ཚིག་ཐོ།<br>Browse All
       </button>
       <button class="action-btn" id="quizBtn">
-        <i class="bi bi-patch-question"></i> Quiz Mode
+        <i class="bi bi-patch-question"></i> རིག་བསྡུར།<br>Quiz Mode
       </button>
       <button class="action-btn accent" id="contributeBtn">
-        <i class="bi bi-plus-circle"></i> Contribute
+        <i class="bi bi-plus-circle"></i> མིང་ཚིག་ཁ་སྐོང་།<br>Contribute
       </button>
     </div>
 
@@ -140,7 +140,7 @@
     <div class="modal-overlay" id="quizModal">
       <div class="modal-box">
         <div class="modal-header">
-          <span class="modal-title"><i class="bi bi-patch-question"></i> Quiz Mode</span>
+          <span class="modal-title"><i class="bi bi-patch-question"></i> རིག་བསྡུར། Quiz</span>
           <button class="modal-close" id="quizClose"><i class="bi bi-x-lg"></i></button>
         </div>
         <div class="quiz-body" id="quizBody"></div>
@@ -151,41 +151,41 @@
     <div class="modal-overlay" id="contributeModal">
       <div class="modal-box">
         <div class="modal-header">
-          <span class="modal-title"><i class="bi bi-plus-circle"></i> Contribute a Word</span>
+          <span class="modal-title"><i class="bi bi-plus-circle"></i> མིང་ཚིག་ཁ་སྐོང་། Contribute a Word</span>
           <button class="modal-close" id="contributeClose"><i class="bi bi-x-lg"></i></button>
         </div>
         <div class="contribute-body">
-          <p class="contribute-desc">Submit a new honorific word for review. The data manager will approve it before it appears in the dictionary. You'll receive a confirmation email.</p>
+          <p class="contribute-desc">ང་བཅས་ནང་མེད་པའི་ཚིག་ ན་གིས་གནང་མི་མིང་ཚིག་གསརཔ་དང་ དེའི་ཞེ་སའི་ཚིག་གཅིགཔོ་འདི་གིས་ཡང་ ང་བཅས་འབྲུག་པའི་ན་གཞོན་ཨ་ལོ་ཚུ་གིས་ ཞེ་སའི་ཚིག་ཚུ་ཚང་ལ་མ་ནོར་བར་ ཤེས་ཚུགས་པའི་རྟེན་འབྲེལ་ཡོད་ལགས། བཀའ་དྲིན་ཆེ།</p>
           <div class="form-group">
-            <label>Your Name</label>
-            <input type="text" id="cName" placeholder="e.g. Tshering Dorji" class="form-input">
+            <label>མིང་གསལ། Your Name</label>
+            <input type="text" id="cName" placeholder="e.g. Thinley Wangchuk" class="form-input">
           </div>
           <div class="form-group">
-            <label>Your Email</label>
+            <label>མིང་གསལ། གློག་འཕྲིན་ཁ་བྱང་། Your Email</label>
             <input type="email" id="cEmail" placeholder="e.g. tshering@example.com" class="form-input">
           </div>
           <div class="form-group">
-            <label>Dzongkha Word (Column A)</label>
+            <label>རྫོང་ཁའི་ཚིག། Dzongkha Word (Column A)</label>
             <input type="text" id="cWord" placeholder="Dzongkha word" class="form-input dzo-input">
           </div>
           <div class="form-group">
-            <label>English Translation (Column B)</label>
+            <label>ཨིང་སྐད་ཀྱི་ཚིག། English Translation (Column B)</label>
             <input type="text" id="cEnglish" placeholder="e.g. eat" class="form-input">
           </div>
           <div class="form-group">
-            <label>Honorific Form (Column C)</label>
+            <label>ཞེ་སའི་ཚིག། Honorific Form (Column C)</label>
             <input type="text" id="cHonorific" placeholder="Honorific term" class="form-input dzo-input">
           </div>
           <div class="form-group">
-            <label>Meaning in Dzongkha (Column D)</label>
+            <label>གོ་དོན། Meaning in Dzongkha (Column D)</label>
             <input type="text" id="cMeaning" placeholder="Dzongkha meaning" class="form-input dzo-input">
           </div>
           <div class="form-group">
-            <label>Example Sentence (Column E)</label>
+            <label>དཔེ། (རྗོད་ཚིག) Example Sentence (Column E)</label>
             <input type="text" id="cExample" placeholder="Example usage" class="form-input dzo-input">
           </div>
           <button class="submit-btn" id="submitContribution">
-            <i class="bi bi-send"></i> Submit for Review
+            <i class="bi bi-send"></i> མིང་ཚིག་ཐོ་བཀོད་གནང་། Submit/Add Word
           </button>
           <div class="contribute-status" id="contributeStatus"></div>
         </div>
